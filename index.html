@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DivyaGyan - Ancient Wisdom for Modern Life</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f5fbff 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 30px rgba(0, 0, 100, 0.08);
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
+        .navbar.scrolled {
+            padding: 12px 5%;
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.92);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.03);
+        }
+        
+        .logo-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            border-radius: 8px;
+            margin-right: 10px;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            color: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            transition: width 0.4s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 5% 100px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .rotating-text-container {
+            min-height: 120px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .rotating-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            font-size: clamp(22px, 4vw, 36px);
+            font-weight: 700;
+            color: #111827;
+            opacity: 0;
+            transition: all 0.8s ease;
+            transform: translateY(20px);
+        }
+        
+        .rotating-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .subtext {
+            font-size: clamp(15px, 2.5vw, 18px);
+            color: #4b5563;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.5s;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 2s;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.7s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Ebooks Section */
+        .ebooks-section {
+            padding: 80px 5% 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            border-radius: 3px;
+        }
+        
+        .ebooks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .ebook-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 100, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            position: relative;
+        }
+        
+        .ebook-card:nth-child(1) { animation-delay: 0.2s; }
+        .ebook-card:nth-child(2) { animation-delay: 0.4s; }
+        .ebook-card:nth-child(3) { animation-delay: 0.6s; }
+        .ebook-card:nth-child(4) { animation-delay: 0.8s; }
+        .ebook-card:nth-child(5) { animation-delay: 1.0s; }
+        .ebook-card:nth-child(6) { animation-delay: 1.2s; }
+        
+        .ebook-card:hover {
+            transform: translateY(-10px) rotate(2deg) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 100, 0.15);
+        }
+        
+        .bestseller-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+        
+        .trending-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ec4899, #db2777);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+        
+        .ebook-cover-container {
+            position: relative;
+            overflow: hidden;
+            height: 240px;
+            perspective: 1000px;
+        }
+        
+        .ebook-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .ebook-card:hover .ebook-cover {
+            transform: rotateY(5deg) rotateX(2deg) scale(1.05);
+        }
+        
+        .shine-effect {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-20deg);
+            transition: all 0.8s;
+        }
+        
+        .ebook-card:hover .shine-effect {
+            left: 150%;
+        }
+        
+        .ebook-content {
+            padding: 25px;
+        }
+        
+        .ebook-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+        
+        .ebook-desc {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .ebook-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .downloads {
+            display: flex;
+            align-items: center;
+        }
+        
+        .downloads i {
+            margin-right: 5px;
+            color: #2563eb;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .stars {
+            color: #f59e0b;
+            margin-right: 5px;
+            letter-spacing: 2px;
+        }
+        
+        /* Hypnotic Button Styles */
+        .button-container {
+            margin: 30px auto;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .hypnotic-button {
+            position: relative;
+            display: inline-block;
+            padding: 12px 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #8a2be2 0%, #b88ad4 100%);
+            border-radius: 12px;
+            box-shadow: 
+              0 6px 20px rgba(138, 43, 226, 0.3),
+              0 2px 40px rgba(138, 43, 226, 0.2),
+              inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            z-index: 1;
+            animation: gentlePulse 4s infinite alternate;
+        }
+        
+        @keyframes gentlePulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02); }
+        }
+        
+        .hypnotic-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+              0 8px 25px rgba(138, 43, 226, 0.4),
+              0 3px 50px rgba(138, 43, 226, 0.3),
+              inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            animation: none;
+        }
+        
+        .hypnotic-button:active {
+            transform: translateY(1px) scale(0.98);
+        }
+        
+        .button-text {
+            position: relative;
+            z-index: 3;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .button-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              to right,
+              rgba(255, 255, 255, 0) 0%,
+              rgba(255, 255, 255, 0.2) 50%,
+              rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+            animation: shineLoop 5s infinite;
+            z-index: 1;
+        }
+        
+        @keyframes shineLoop {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        .pulse-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: pulse 3s infinite;
+            z-index: 0;
+            opacity: 0;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: scale(1.1); opacity: 0; }
+        }
+        
+        .floating-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .dot {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatUp 4s infinite;
+        }
+        
+        .dot:nth-child(1) {
+            width: 2px;
+            height: 2px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .dot:nth-child(2) {
+            width: 3px;
+            height: 3px;
+            top: 70%;
+            left: 50%;
+            animation-delay: 1s;
+        }
+        
+        .dot:nth-child(3) {
+            width: 2px;
+            height: 2px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 0.7; }
+            100% { transform: translateY(-30px); opacity: 0; }
+        }
+        
+        /* Footer Section */
+        .footer {
+            background: #f8fafc;
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-logo-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            border-radius: 6px;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .copyright {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 30px;
+        }
+        
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #f0fdf4;
+            color: #16a34a;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 15px;
+            border: 1px solid #dcfce7;
+        }
+        
+        .guarantee-badge i {
+            margin-right: 8px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .hero {
+                padding: 150px 5% 80px;
+            }
+            
+            .ebooks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ebook-cover-container {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 130px 5% 60px;
+            }
+            
+            .rotating-text {
+                font-size: clamp(20px, 6vw, 28px);
+            }
+            
+            .ebook-card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .footer-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">
+            <span class="logo-icon">📖</span> DivyaGyan
+        </a>
+        <div class="nav-links">
+            <a href="#ebooks">E-Books</a>
+            <a href="#">Testimonials</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="rotating-text-container" id="rotatingTextContainer">
+            <div class="rotating-text active">Unlock Hidden Knowledge • Sanatan Wisdom</div>
+            <div class="rotating-text">Ancient Secrets for Modern Life</div>
+            <div class="rotating-text">Transform Your Life with Vedic Wisdom</div>
+            <div class="rotating-text">Instant Digital Downloads • Lifetime Access</div>
+        </div>
+        <p class="subtext">Discover timeless wisdom from ancient scriptures, beautifully presented for modern seekers. 100% satisfaction guarantee or your money back.</p>
+        
+        <div class="button-container">
+            <a href="#ebooks" class="hypnotic-button">
+                <span class="button-text">Explore Collection</span>
+                <div class="button-shine"></div>
+                <div class="pulse-effect"></div>
+                <div class="floating-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Ebooks Section -->
+    <section class="ebooks-section" id="ebooks">
+        <h2 class="section-title">Our Spiritual Collection</h2>
+        <div class="ebooks-grid">
+            <!-- Ebook Card 1 -->
+            <div class="ebook-card">
+                <div class="bestseller-badge">Bestseller</div>
+                <div class="ebook-cover-container">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bhagavad Gita Demystified" class="ebook-cover">
+                    <div class="shine-effect"></div>
+                </div>
+                <div class="ebook-content">
+                    <h3 class="ebook-title">Bhagavad Gita Demystified</h3>
+                    <p class="ebook-desc">A modern interpretation of the 700 verses with practical life applications and commentary from realized masters.</p>
+                    <div class="ebook-stats">
+                        <div class="downloads">
+                            <i>↓</i> 1,240+ downloads
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span> 4.9
+                        </div>
+                    </div>
+                    <div class="button-container" style="margin: 0;">
+                        <a href="#" class="hypnotic-button">
+                            <span class="button-text">Explore Now</span>
+                            <div class="button-shine"></div>
+                            <div class="pulse-effect"></div>
+                            <div class="floating-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ebook Card 2 -->
+            <div class="ebook-card">
+                <div class="trending-badge">Trending</div>
+                <div class="ebook-cover-container">
+                    <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Vedic Meditation Techniques" class="ebook-cover">
+                    <div class="shine-effect"></div>
+                </div>
+                <div class="ebook-content">
+                    <h3 class="ebook-title">Vedic Meditation Techniques</h3>
+                    <p class="ebook-desc">17 powerful meditation methods from ancient texts to calm your mind and awaken consciousness.</p>
+                    <div class="ebook-stats">
+                        <div class="downloads">
+                            <i>↓</i> 980+ downloads
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span> 4.8
+                        </div>
+                    </div>
+                    <div class="button-container" style="margin: 0;">
+                        <a href="#" class="hypnotic-button">
+                            <span class="button-text">Explore Now</span>
+                            <div class="button-shine"></div>
+                            <div class="pulse-effect"></div>
+                            <div class="floating-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ebook Card 3 -->
+            <div class="ebook-card">
+                <div class="popular-badge">Popular</div>
+                <div class="ebook-cover-container">
+                    <img src="https://images.unsplash.com/photo-1535905557558-afc4877a26fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Ayurveda for Beginners" class="ebook-cover">
+                    <div class="shine-effect"></div>
+                </div>
+                <div class="ebook-content">
+                    <h3 class="ebook-title">Ayurveda for Beginners</h3>
+                    <p class="ebook-desc">Discover your dosha and learn daily routines, dietary guidelines, and herbal remedies for perfect health.</p>
+                    <div class="ebook-stats">
+                        <div class="downloads">
+                            <i>↓</i> 750+ downloads
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★☆</span> 4.6
+                        </div>
+                    </div>
+                    <div class="button-container" style="margin: 0;">
+                        <a href="#" class="hypnotic-button">
+                            <span class="button-text">Explore Now</span>
+                            <div class="button-shine"></div>
+                            <div class="pulse-effect"></div>
+                            <div class="floating-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ebook Card 4 -->
+            <div class="ebook-card">
+                <div class="bestseller-badge">Bestseller</div>
+                <div class="ebook-cover-container">
+                    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Mantras for Transformation" class="ebook-cover">
+                    <div class="shine-effect"></div>
+                </div>
+                <div class="ebook-content">
+                    <h3 class="ebook-title">Mantras for Transformation</h3>
+                    <p class="ebook-desc">108 sacred mantras with proper pronunciation, meaning, and meditation techniques for each.</p>
+                    <div class="ebook-stats">
+                        <div class="downloads">
+                            <i>↓</i> 1,050+ downloads
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span> 4.9
+                        </div>
+                    </div>
+                    <div class="button-container" style="margin: 0;">
+                        <a href="#" class="hypnotic-button">
+                            <span class="button-text">Explore Now</span>
+                            <div class="button-shine"></div>
+                            <div class="pulse-effect"></div>
+                            <div class="floating-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ebook Card 5 -->
+            <div class="ebook-card">
+                <div class="popular-badge">Popular</div>
+                <div class="ebook-cover-container">
+                    <img src="https://images.unsplash.com/photo-1510172951991-856a62a9e395?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Yoga Sutras Decoded" class="ebook-cover">
+                    <div class="shine-effect"></div>
+                </div>
+                <div class="ebook-content">
+                    <h3 class="ebook-title">Yoga Sutras Decoded</h3>
+                    <p class="ebook-desc">Patanjali's 196 sutras explained with modern examples and step-by-step practices for spiritual growth.</p>
+                    <div class="ebook-stats">
+                        <div class="downloads">
+                            <i>↓</i> 680+ downloads
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★☆</span> 4.7
+                        </div>
+                    </div>
+                    <div class="button-container" style="margin: 0;">
+                        <a href="#" class="hypnotic-button">
+                            <span class="button-text">Explore Now</span>
+                            <div class="button-shine"></div>
+                            <div class="pulse-effect"></div>
+                            <div class="floating-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ebook Card 6 -->
+            <div class="ebook-card">
+                <div class="ebook-cover-container">
+                    <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Upanishads Essentials" class="ebook-cover">
+                    <div class="shine-effect"></div>
+                </div>
+                <div class="ebook-content">
+                    <h3 class="ebook-title">Upanishads Essentials</h3>
+                    <p class="ebook-desc">Key teachings from 10 principal Upanishads distilled for contemporary spiritual seekers.</p>
+                    <div class="ebook-stats">
+                        <div class="downloads">
+                            <i>↓</i> 520+ downloads
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★☆</span> 4.5
+                        </div>
+                    </div>
+                    <div class="button-container" style="margin: 0;">
+                        <a href="#" class="hypnotic-button">
+                            <span class="button-text">Explore Now</span>
+                            <div class="button-shine"></div>
+                            <div class="pulse-effect"></div>
+                            <div class="floating-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="#" class="footer-logo">
+                <span class="footer-logo-icon">📖</span> DivyaGyan
+            </a>
+            <p class="footer-text">
+                DivyaGyan brings you authentic spiritual knowledge from ancient Indian scriptures, 
+                presented in a way that's accessible to modern seekers. Our ebooks are carefully 
+                curated by experts to provide genuine wisdom for your spiritual journey.
+            </p>
+            <div class="guarantee-badge">
+                <i>✓</i> 100% Satisfaction Guarantee - Full refund if not satisfied
+            </div>
+            <p class="copyright">
+                &copy; 2023 DivyaGyan. All rights reserved. | <a href="#" style="color: #94a3b8; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #94a3b8; text-decoration: none;">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Rotating Text Animation
+        const texts = document.querySelectorAll('.rotating-text');
+        let currentIndex = 0;
+        
+        function rotateText() {
+            // Fade out current text
+            texts[currentIndex].classList.remove('active');
+            
+            // Move to next text
+            currentIndex = (currentIndex + 1) % texts.length;
+            
+            // Fade in next text
+            texts[currentIndex].classList.add('active');
+            
+            // Repeat every 4 seconds
+            setTimeout(rotateText, 4000);
+        }
+        
+        // Start rotating text animation
+        setTimeout(rotateText, 4000);
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Initialize animations when page loads
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // Animate all ebook cards
+            const cards = document.querySelectorAll('.ebook-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1 + 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
