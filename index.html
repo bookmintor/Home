@@ -1,344 +1,352 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import {
-  Sparkles,
-  Search,
-  LibraryBig,
-  BookOpen,
-  Wand2,
-  Star,
-  Layers,
-  ChevronRight,
-  ArrowRight,
-} from "lucide-react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EBookArc — Premium eBooks. Clean UI. Smooth Glow.</title>
+  <meta name="description" content="EBookArc — premium, shiny, smooth eBook library with clean UI and fast navigation." />
+  <meta name="theme-color" content="#0b0e13" />
 
-export default function EBookArcHome() {
-  const [query, setQuery] = useState("");
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            indigoGlow: '#6366F1',
+            fuchsiaGlow: '#D946EF',
+          },
+          boxShadow: {
+            glow: '0 10px 30px -10px rgba(99,102,241,0.45)',
+            glass: '0 10px 30px -10px rgba(0,0,0,.45)'
+          },
+          keyframes: {
+            shine: { '0%': { transform: 'translateX(-120%)' }, '100%': { transform: 'translateX(120%)' } },
+            floaty: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-4px)' } },
+          },
+          animation: {
+            shine: 'shine 2.6s ease-in-out infinite',
+            floaty: 'floaty 6s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
 
-  // subtle sparkles on mount
-  useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollBehavior = "smooth";
-  }, []);
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const target = `./book%20tem.html${query ? `#ebooks?q=${encodeURIComponent(query)}` : ""}`;
-    window.location.href = target;
-  };
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    html { scroll-behavior:smooth }
+    body { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    /* Hide native scrollbar in horizontal rails */
+    .no-scrollbar::-webkit-scrollbar{ display:none }
+    .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0b0e13] text-zinc-100 antialiased selection:bg-indigo-500/30">
+  <!-- ===== Glow Background ===== -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-56 -left-40 h-[680px] w-[680px] rounded-full bg-indigo-600/20 blur-[140px]"></div>
+    <div class="absolute -bottom-56 -right-40 h-[600px] w-[600px] rounded-full bg-fuchsia-600/15 blur-[130px]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.06),rgba(255,255,255,0)_70%)]"></div>
+  </div>
 
-  return (
-    <div className="min-h-screen bg-[#0b0e13] text-zinc-100 antialiased selection:bg-indigo-500/30">
-      {/* ===== Decorative Background (glow + shine) ===== */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute -top-40 -left-28 h-[680px] w-[680px] rounded-full bg-indigo-600/20 blur-[140px]" />
-        <div className="absolute -bottom-56 -right-28 h-[620px] w-[620px] rounded-full bg-fuchsia-600/10 blur-[130px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.06),rgba(255,255,255,0)_70%)]" />
+  <!-- ===== Header / Nav ===== -->
+  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/40">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <!-- Brand -->
+      <a href="/" class="group flex items-center gap-3">
+        <div class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 shadow-[0_0_35px_rgba(99,102,241,0.35)]">
+          <!-- Simple logo mark (book + arc) -->
+          <svg viewBox="0 0 64 64" class="h-6 w-6" aria-hidden="true">
+            <defs>
+              <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity="0.95"/>
+                <stop offset="1" stop-color="#dbeafe"/>
+              </linearGradient>
+            </defs>
+            <path d="M12 18a8 8 0 0 1 8-8h25a7 7 0 0 1 7 7v33H25a13 13 0 0 1-13-13V18Z" fill="url(#lg)"/>
+            <path d="M22 24h22M22 30h22" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/>
+            <path d="M18 50c6-8 24-8 30 0" stroke="#7c3aed" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="text-lg font-bold tracking-wide text-zinc-100"><span class="bg-gradient-to-r from-indigo-300 via-sky-300 to-fuchsia-300 bg-clip-text text-transparent">EBook</span>Arc</span>
+      </a>
+      <div class="hidden items-center gap-6 rounded-2xl border border-white/10 bg-white/5 px-5 py-2 backdrop-blur md:flex">
+        <a href="/categories" class="text-sm text-zinc-300 transition hover:text-white">Categories</a>
+        <a href="/featured" class="text-sm text-zinc-300 transition hover:text-white">Featured</a>
+        <a href="/about" class="text-sm text-zinc-300 transition hover:text-white">About</a>
+        <!-- Library goes to your existing file too -->
+        <a href="book tem.html" class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1.5 text-sm text-white transition hover:bg-white/15">Library</a>
+      </div>
+      <a href="book tem.html" class="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white shadow-[0_0_0_0_rgba(99,102,241,0)] transition hover:border-indigo-400/40 hover:bg-white/10 hover:shadow-[0_0_35px_0_rgba(99,102,241,0.35)]">Open Library
+        <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <!-- ===== Main ===== -->
+  <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Hero -->
+    <section class="grid items-center gap-10 py-10 md:grid-cols-2 md:py-16 lg:py-20">
+      <div data-aos="fade-up">
+        <h1 class="text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">Premium eBooks.<br><span class="bg-gradient-to-r from-indigo-400 via-sky-400 to-fuchsia-400 bg-clip-text text-transparent">Clean UI. Smooth Glow.</span></h1>
+        <p class="mt-4 max-w-xl text-base leading-relaxed text-zinc-300/90 sm:text-lg">EBookArc me aapko milengi har category ki hand‑picked eBooks — same theme, shiny effects aur silky animations. Bas search karo, choose karo aur padho.</p>
+
+        <!-- Search -->
+        <form class="mt-6 flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-2 shadow-glow backdrop-blur" action="book tem.html">
+          <div class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 text-zinc-300">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <input name="q" placeholder="Search ebooks: Gita, Startup, Python…" class="h-12 w-full flex-1 bg-transparent text-sm outline-none placeholder:text-zinc-400" />
+          <button type="submit" class="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold shadow-glow transition active:scale-[0.98]">Find eBooks <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+        </form>
+
+        <!-- Trust badges -->
+        <div class="mt-8 flex flex-wrap items-center gap-3 text-xs text-zinc-400">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg> Ad‑free UX</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17l-5 3 1-5-4-4 5-1 3-5 3 5 5 1-4 4 1 5-5-3z"/></svg> Hand‑picked</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13a7 7 0 0 1 14 0v3H5v-3Z"/><path d="M10 18v2a2 2 0 1 0 4 0v-2"/></svg> Smooth Animations</span>
+        </div>
       </div>
 
-      {/* ===== Nav ===== */}
-      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/40">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          {/* Brand */}
-          <a href="#" className="group flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 shadow-[0_0_35px_rgba(99,102,241,0.35)]">
-              {/* Simple E + Arc mark */}
-              <LogoMark />
+      <!-- Mockup with shiny covers -->
+      <div class="relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="relative rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-2xl backdrop-blur-xl">
+          <div class="rounded-[22px] border border-white/10 bg-gradient-to-br from-zinc-900/60 to-zinc-800/40 p-6 shadow-inner">
+            <div class="mb-4 flex items-center justify-between text-xs text-zinc-400">
+              <span class="inline-flex items-center gap-2"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Multi‑category</span>
+              <span>Top Picks</span>
             </div>
-            <span className="text-lg font-bold tracking-wide text-zinc-100">
-              <span className="bg-gradient-to-r from-indigo-300 via-sky-300 to-fuchsia-300 bg-clip-text text-transparent">EBook</span>
-              Arc
-            </span>
-          </a>
-          <div className="hidden items-center gap-6 rounded-2xl border border-white/10 bg-white/5 px-5 py-2 backdrop-blur md:flex">
-            <a href="#categories" className="text-sm text-zinc-300 transition hover:text-white">Categories</a>
-            <a href="#featured" className="text-sm text-zinc-300 transition hover:text-white">Featured</a>
-            <a href="#about" className="text-sm text-zinc-300 transition hover:text-white">About</a>
-            <a href="./book%20tem.html" className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1.5 text-sm text-white transition hover:bg-white/15">
-              <LibraryBig className="h-4 w-4" /> Library
-            </a>
-          </div>
-          <a
-            href="./book%20tem.html"
-            className="group inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white shadow-[0_0_0_0_rgba(99,102,241,0)] transition hover:border-indigo-400/40 hover:bg-white/10 hover:shadow-[0_0_35px_0_rgba(99,102,241,0.35)]"
-          >
-            Open Library
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
-        </nav>
-      </header>
-
-      {/* ===== Hero ===== */}
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <section className="grid items-center gap-10 py-10 md:grid-cols-2 md:py-16 lg:py-20">
-          <div>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl"
-            >
-              Premium eBooks. 
-              <br />
-              <span className="bg-gradient-to-r from-indigo-400 via-sky-400 to-fuchsia-400 bg-clip-text text-transparent">
-                Clean UI. Smooth Glow.
-              </span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-4 max-w-xl text-base leading-relaxed text-zinc-300/90 sm:text-lg"
-            >
-              EBookArc me aapko milengi har category ki hand‑picked eBooks — same theme, shiny effects aur silky animations 
-              jaisa aapke library page me hai. Bas search karo, choose karo aur padho.
-            </motion.p>
-
-            {/* Search */}
-            <motion.form
-              onSubmit={handleSearch}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-2 shadow-[0_10px_30px_-10px] shadow-indigo-500/30 backdrop-blur"
-            >
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/5 text-zinc-300">
-                <Search className="h-5 w-5" />
-              </div>
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search ebooks: Gita, Startup, Python…"
-                className="h-12 w-full flex-1 bg-transparent text-sm outline-none placeholder:text-zinc-400"
-              />
-              <button
-                type="submit"
-                className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold shadow-[0_10px_30px_-10px] shadow-indigo-500/50 transition active:scale-[0.98]"
-              >
-                Find eBooks <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
-            </motion.form>
-
-            {/* Trust badges */}
-            <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-zinc-400">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1"><Sparkles className="h-3.5 w-3.5"/> Ad‑free UX</span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1"><Star className="h-3.5 w-3.5"/> Hand‑picked</span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1"><Wand2 className="h-3.5 w-3.5"/> Smooth Animations</span>
-            </div>
-          </div>
-
-          {/* Mockup panel with shiny covers */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative"
-          >
-            <div className="relative rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-2xl backdrop-blur-xl">
-              <div className="rounded-[22px] border border-white/10 bg-gradient-to-br from-zinc-900/60 to-zinc-800/40 p-6 shadow-inner">
-                <div className="mb-4 flex items-center justify-between text-xs text-zinc-400">
-                  <span className="inline-flex items-center gap-2"><Layers className="h-4 w-4"/> Multi‑category</span>
-                  <span>Top Picks</span>
-                </div>
-                <div className="grid grid-cols-3 gap-3">
-                  {covers.map((c) => (
-                    <ShinyCover key={c.alt} {...c} />
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[34px] bg-gradient-to-tr from-indigo-500/10 via-transparent to-fuchsia-500/10 blur-2xl" />
-          </motion.div>
-        </section>
-
-        {/* ===== Categories ===== */}
-        <section id="categories" className="py-6">
-          <h2 className="text-2xl font-bold sm:text-3xl">Browse by Category</h2>
-          <p className="mt-1 text-zinc-400">Spirituality se leke Technology tak — sab ek jagah.</p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((cat) => (
-              <a
-                key={cat.title}
-                href={cat.href}
-                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-indigo-400/30"
-              >
-                <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gradient-to-br from-indigo-500/15 to-fuchsia-500/15 blur-2xl transition group-hover:scale-110" />
-                <div className="relative z-10">
-                  <div className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
-                    <Sparkles className="h-3.5 w-3.5"/> {cat.tag}
-                  </div>
-                  <h3 className="mt-3 text-lg font-semibold">{cat.title}</h3>
-                  <p className="mt-1 text-sm text-zinc-400">{cat.desc}</p>
-                </div>
-                {/* bg preview */}
-                <div className="absolute inset-0 opacity-50 [mask-image:linear-gradient(to_top,black,transparent_70%)]">
-                  <img src={cat.image} alt={cat.title} className="h-full w-full object-cover" />
-                </div>
+            <div class="grid grid-cols-3 gap-3">
+              <!-- Shiny cover cards -->
+              <a href="/ebooks/bhagavad-gita" class="group relative h-40 overflow-hidden rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=60" alt="Bhagavad Gita" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]"/>
+                <div class="pointer-events-none absolute inset-0"><div class="absolute -inset-1 -skew-x-12 animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div></div>
               </a>
-            ))}
-          </div>
-        </section>
-
-        {/* ===== Featured Slider ===== */}
-        <section id="featured" className="py-10">
-          <h2 className="text-2xl font-bold sm:text-3xl">Featured Selections</h2>
-          <p className="mt-1 text-zinc-400">Best‑rated titles from different categories.</p>
-
-          <div className="mt-5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex gap-4">
-              {featured.map((f) => (
-                <article
-                  key={f.title}
-                  className="relative h-full w-[300px] flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_10px_30px_-10px_rgba(99,102,241,0.35)]"
-                >
-                  <div className="h-44 w-full overflow-hidden">
-                    <img src={f.image} alt={f.title} className="h-full w-full object-cover transition duration-500 hover:scale-[1.06]" />
-                  </div>
-                  <div className="p-4">
-                    <div className="flex items-center justify-between gap-2">
-                      <strong className="truncate">{f.title}</strong>
-                      <span className="rounded-full bg-white/10 px-2 py-0.5 text-xs text-emerald-300">{f.price}</span>
-                    </div>
-                    <p className="mt-1 line-clamp-2 text-sm text-zinc-400">{f.meta}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6 flex gap-3">
-            <a href="#categories" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10">
-              Explore more <ChevronRight className="h-4 w-4" />
-            </a>
-            <a href="./book%20tem.html" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold">
-              Open Library <LibraryBig className="h-4 w-4" />
-            </a>
-          </div>
-
-          {/* CTA */}
-          <div id="about" className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 className="text-xl font-semibold">Premium feel. Simple experience.</h3>
-                <p className="mt-1 text-sm text-zinc-400">EBookArc makes reading delightful — shiny, smooth, fast.</p>
-              </div>
-              <a
-                href="./book%20tem.html"
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 font-semibold text-black"
-              >
-                Start Reading <ArrowRight className="h-4 w-4" />
+              <a href="/ebooks/writing-creativity" class="group relative h-40 overflow-hidden rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=60" alt="Writing & Creativity" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]"/>
+                <div class="pointer-events-none absolute inset-0"><div class="absolute -inset-1 -skew-x-12 animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div></div>
+              </a>
+              <a href="/ebooks/mindfulness" class="group relative h-40 overflow-hidden rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?auto=format&fit=crop&w=1200&q=60" alt="Mindfulness" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]"/>
+                <div class="pointer-events-none absolute inset-0"><div class="absolute -inset-1 -skew-x-12 animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div></div>
+              </a>
+              <a href="/ebooks/business" class="group relative h-40 overflow-hidden rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1473186578172-c141e6798cf4?auto=format&fit=crop&w=1200&q=60" alt="Business" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]"/>
+                <div class="pointer-events-none absolute inset-0"><div class="absolute -inset-1 -skew-x-12 animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div></div>
+              </a>
+              <a href="/ebooks/python" class="group relative h-40 overflow-hidden rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=60" alt="Programming" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]"/>
+                <div class="pointer-events-none absolute inset-0"><div class="absolute -inset-1 -skew-x-12 animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div></div>
+              </a>
+              <a href="/ebooks/health" class="group relative h-40 overflow-hidden rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1526312426976-593c2586f3df?auto=format&fit=crop&w=1200&q=60" alt="Health" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]"/>
+                <div class="pointer-events-none absolute inset-0"><div class="absolute -inset-1 -skew-x-12 animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div></div>
               </a>
             </div>
-          </div>
-        </section>
-      </main>
-
-      {/* ===== Footer ===== */}
-      <footer className="mt-10 border-t border-white/10 py-10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-sm text-zinc-400 sm:flex-row">
-          <p>© {new Date().getFullYear()} EBookArc. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-zinc-200">Privacy</a>
-            <a href="#" className="hover:text-zinc-200">Terms</a>
-            <a href="#" className="hover:text-zinc-200">Contact</a>
           </div>
         </div>
-      </footer>
-    </div>
-  );
-}
-
-/* ===================== Components ===================== */
-function LogoMark() {
-  return (
-    <svg viewBox="0 0 64 64" className="h-6 w-6" aria-hidden>
-      <defs>
-        <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#fff" stopOpacity="0.95" />
-          <stop offset="1" stopColor="#dbeafe" />
-        </linearGradient>
-      </defs>
-      <path d="M12 18a8 8 0 0 1 8-8h25a7 7 0 0 1 7 7v33H25a13 13 0 0 1-13-13V18Z" fill="url(#lg)"/>
-      <path d="M22 24h22M22 30h22" stroke="#60a5fa" strokeWidth="3" strokeLinecap="round"/>
-      <path d="M18 50c6-8 24-8 30 0" stroke="#7c3aed" strokeWidth="4" strokeLinecap="round"/>
-    </svg>
-  );
-}
-
-function ShinyCover({ src, alt }) {
-  return (
-    <div className="group relative h-40 overflow-hidden rounded-2xl">
-      <img src={src} alt={alt} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]" />
-      {/* Shine sweep */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -inset-1 -skew-x-12 animate-[shine_2.6s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        <div class="pointer-events-none absolute -inset-2 -z-10 rounded-[34px] bg-gradient-to-tr from-indigo-500/10 via-transparent to-fuchsia-500/10 blur-2xl"></div>
       </div>
-      <style jsx>{`
-        @keyframes shine { 0% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
-      `}</style>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories" class="py-6">
+      <h2 class="text-2xl font-bold sm:text-3xl">Browse by Category</h2>
+      <p class="mt-1 text-zinc-400">Spirituality se leke Technology tak — sab ek jagah.</p>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Each card fully clickable with / routes -->
+        <a href="/categories/spirituality" class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-indigo-400/30" data-aos="fade-up">
+          <div class="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gradient-to-br from-indigo-500/15 to-fuchsia-500/15 blur-2xl transition group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <span class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">Popular</span>
+            <h3 class="mt-3 text-lg font-semibold">Spirituality</h3>
+            <p class="mt-1 text-sm text-zinc-400">Bhakti, Vedanta, Gita, Upanishads</p>
+          </div>
+          <div class="absolute inset-0 opacity-50 [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=1400&q=60" alt="Spirituality" class="h-full w-full object-cover" />
+          </div>
+        </a>
+
+        <a href="/categories/self-help" class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-indigo-400/30" data-aos="fade-up" data-aos-delay="50">
+          <div class="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gradient-to-br from-indigo-500/15 to-sky-500/15 blur-2xl transition group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <span class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">Trending</span>
+            <h3 class="mt-3 text-lg font-semibold">Self‑Help</h3>
+            <p class="mt-1 text-sm text-zinc-400">Habits, focus, growth mindset</p>
+          </div>
+          <div class="absolute inset-0 opacity-50 [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=60" alt="Self Help" class="h-full w-full object-cover" />
+          </div>
+        </a>
+
+        <a href="/categories/technology" class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-indigo-400/30" data-aos="fade-up" data-aos-delay="100">
+          <div class="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gradient-to-br from-purple-500/15 to-indigo-500/15 blur-2xl transition group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <span class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">New</span>
+            <h3 class="mt-3 text-lg font-semibold">Technology</h3>
+            <p class="mt-1 text-sm text-zinc-400">Programming, data, AI</p>
+          </div>
+          <div class="absolute inset-0 opacity-50 [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=60" alt="Technology" class="h-full w-full object-cover" />
+          </div>
+        </a>
+
+        <a href="/categories/business" class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-indigo-400/30" data-aos="fade-up" data-aos-delay="150">
+          <div class="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gradient-to-br from-amber-500/15 to-red-500/15 blur-2xl transition group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <span class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">Hot</span>
+            <h3 class="mt-3 text-lg font-semibold">Business</h3>
+            <p class="mt-1 text-sm text-zinc-400">Startup, finance, marketing</p>
+          </div>
+          <div class="absolute inset-0 opacity-50 [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=60" alt="Business" class="h-full w-full object-cover" />
+          </div>
+        </a>
+
+        <a href="/categories/health" class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-indigo-400/30" data-aos="fade-up" data-aos-delay="200">
+          <div class="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gradient-to-br from-emerald-500/15 to-teal-500/15 blur-2xl transition group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <span class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">Editors' pick</span>
+            <h3 class="mt-3 text-lg font-semibold">Health & Wellness</h3>
+            <p class="mt-1 text-sm text-zinc-400">Fitness, ayurveda, mental health</p>
+          </div>
+          <div class="absolute inset-0 opacity-50 [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+            <img src="https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=1400&q=60" alt="Health & Wellness" class="h-full w-full object-cover" />
+          </div>
+        </a>
+
+        <a href="/categories/fiction" class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:border-indigo-400/30" data-aos="fade-up" data-aos-delay="250">
+          <div class="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-gradient-to-br from-pink-500/15 to-fuchsia-500/15 blur-2xl transition group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <span class="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">Classic</span>
+            <h3 class="mt-3 text-lg font-semibold">Fiction</h3>
+            <p class="mt-1 text-sm text-zinc-400">Stories, novels, literature</p>
+          </div>
+          <div class="absolute inset-0 opacity-50 [mask-image:linear-gradient(to_top,black,transparent_70%)]">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1400&q=60" alt="Fiction" class="h-full w-full object-cover" />
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Featured Slider -->
+    <section id="featured" class="py-10">
+      <h2 class="text-2xl font-bold sm:text-3xl">Featured Selections</h2>
+      <p class="mt-1 text-zinc-400">Best‑rated titles from different categories.</p>
+
+      <div class="mt-5 overflow-x-auto no-scrollbar">
+        <div class="flex gap-4">
+          <!-- Card template repeated -->
+          <a href="/ebooks/ayurveda-for-beginners" class="relative h-full w-[300px] flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_10px_30px_-10px_rgba(99,102,241,0.35)]" data-aos="fade-up">
+            <div class="h-44 w-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=1200&q=60" alt="Ayurveda for Beginners" class="h-full w-full object-cover transition duration-500 hover:scale-[1.06]" />
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between gap-2">
+                <strong class="truncate">Ayurveda for Beginners</strong>
+                <span class="rounded-full bg-white/10 px-2 py-0.5 text-xs text-emerald-300">₹349</span>
+              </div>
+              <p class="mt-1 line-clamp-2 text-sm text-zinc-400">Health • 18h read</p>
+            </div>
+          </a>
+
+          <a href="/ebooks/vedic-meditation" class="relative h-full w-[300px] flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_10px_30px_-10px_rgba(99,102,241,0.35)]" data-aos="fade-up" data-aos-delay="50">
+            <div class="h-44 w-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=1200&q=60" alt="Vedic Meditation" class="h-full w-full object-cover transition duration-500 hover:scale-[1.06]" />
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between gap-2">
+                <strong class="truncate">Vedic Meditation</strong>
+                <span class="rounded-full bg-white/10 px-2 py-0.5 text-xs text-emerald-300">₹299</span>
+              </div>
+              <p class="mt-1 line-clamp-2 text-sm text-zinc-400">Spiritual • 22h</p>
+            </div>
+          </a>
+
+          <a href="/ebooks/gita-demystified" class="relative h-full w-[300px] flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_10px_30px_-10px_rgba(99,102,241,0.35)]" data-aos="fade-up" data-aos-delay="100">
+            <div class="h-44 w-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=60" alt="Gita Demystified" class="h-full w-full object-cover transition duration-500 hover:scale-[1.06]" />
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between gap-2">
+                <strong class="truncate">Gita Demystified</strong>
+                <span class="rounded-full bg-white/10 px-2 py-0.5 text-xs text-emerald-300">₹199</span>
+              </div>
+              <p class="mt-1 line-clamp-2 text-sm text-zinc-400">Spiritual • 15h</p>
+            </div>
+          </a>
+
+          <a href="/ebooks/python-zero-to-pro" class="relative h-full w-[300px] flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_10px_30px_-10px_rgba(99,102,241,0.35)]" data-aos="fade-up" data-aos-delay="150">
+            <div class="h-44 w-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=60" alt="Python: Zero → Pro" class="h-full w-full object-cover transition duration-500 hover:scale-[1.06]" />
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between gap-2">
+                <strong class="truncate">Python: Zero → Pro</strong>
+                <span class="rounded-full bg-white/10 px-2 py-0.5 text-xs text-emerald-300">₹449</span>
+              </div>
+              <p class="mt-1 line-clamp-2 text-sm text-zinc-400">Technology • 30h</p>
+            </div>
+          </a>
+
+          <a href="/ebooks/upanishads-essentials" class="relative h-full w-[300px] flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_10px_30px_-10px_rgba(99,102,241,0.35)]" data-aos="fade-up" data-aos-delay="200">
+            <div class="h-44 w-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1200&q=60" alt="Upanishads Essentials" class="h-full w-full object-cover transition duration-500 hover:scale-[1.06]" />
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between gap-2">
+                <strong class="truncate">Upanishads Essentials</strong>
+                <span class="rounded-full bg-white/10 px-2 py-0.5 text-xs text-emerald-300">₹499</span>
+              </div>
+              <p class="mt-1 line-clamp-2 text-sm text-zinc-400">Spiritual • 30h</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-6 flex gap-3">
+        <a href="/categories" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10">Explore more <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="book tem.html" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold">Open Library <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- CTA -->
+      <div id="about" class="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6" data-aos="fade-up">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 class="text-xl font-semibold">Premium feel. Simple experience.</h3>
+            <p class="mt-1 text-sm text-zinc-400">EBookArc makes reading delightful — shiny, smooth, fast.</p>
+          </div>
+          <a href="book tem.html" class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 font-semibold text-black">Start Reading <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="mt-10 border-t border-white/10 py-10">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-sm text-zinc-400 sm:flex-row">
+      <p>© <span id="year"></span> EBookArc. All rights reserved.</p>
+      <div class="flex items-center gap-6">
+        <a href="/privacy" class="hover:text-zinc-200">Privacy</a>
+        <a href="/terms" class="hover:text-zinc-200">Terms</a>
+        <a href="/contact" class="hover:text-zinc-200">Contact</a>
+      </div>
     </div>
-  );
-}
+  </footer>
 
-/* ===================== Data ===================== */
-const covers = [
-  { src: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=60", alt: "Bhagavad Gita" },
-  { src: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=60", alt: "Writing & Creativity" },
-  { src: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?auto=format&fit=crop&w=1200&q=60", alt: "Mindfulness" },
-  { src: "https://images.unsplash.com/photo-1473186578172-c141e6798cf4?auto=format&fit=crop&w=1200&q=60", alt: "Business" },
-  { src: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=60", alt: "Programming" },
-  { src: "https://images.unsplash.com/photo-1526312426976-593c2586f3df?auto=format&fit=crop&w=1200&q=60", alt: "Health" },
-];
-
-const categories = [
-  {
-    title: "Spirituality",
-    tag: "Popular",
-    desc: "Bhakti, Vedanta, Gita, Upanishads",
-    image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=1400&q=60",
-    href: "./book%20tem.html",
-  },
-  {
-    title: "Self‑Help",
-    tag: "Trending",
-    desc: "Habits, focus, growth mindset",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=60",
-    href: "#featured",
-  },
-  {
-    title: "Technology",
-    tag: "New",
-    desc: "Programming, data, AI",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=60",
-    href: "#featured",
-  },
-  {
-    title: "Business",
-    tag: "Hot",
-    desc: "Startup, finance, marketing",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=60",
-    href: "#featured",
-  },
-  {
-    title: "Health & Wellness",
-    tag: "Editors' pick",
-    desc: "Fitness, ayurveda, mental health",
-    image: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=1400&q=60",
-    href: "#featured",
-  },
-  {
-    title: "Fiction",
-    tag: "Classic",
-    desc: "Stories, novels, literature",
-    image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1400&q=60",
-    href: "#featured",
-  },
-];
-
-const featured = [
-  { title: "Ayurveda for Beginners", price: "₹349", meta: "Health • 18h read", image: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=1200&q=60" },
-  { title: "Vedic Meditation", price: "₹299", meta: "Spiritual • 22h", image: "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=1200&q=60" },
-  { title: "Gita Demystified", price: "₹199", meta: "Spiritual • 15h", image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=1200&q=60" },
-  { title: "Python: Zero → Pro", price: "₹449", meta: "Technology • 30h", image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=60" },
-  { title: "Upanishads Essentials", price: "₹499", meta: "Spiritual • 30h", image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1200&q=60" },
-];
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 650, easing: 'ease-out', once: true });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
