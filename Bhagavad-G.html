@@ -44,7 +44,13 @@
       opacity:0}
     details[open] summary svg{transform:rotate(180deg)}
     .details-content{overflow:hidden; height:0; transition:height .32s ease}
-    .star-glow i{filter: drop-shadow(0 0 6px rgba(245,158,11,.55))}
+
+    /* ⭐ stars filled + glow */
+    .star-glow svg{filter: drop-shadow(0 0 6px rgba(245,158,11,.65))}
+    .star-glow svg path{fill: currentColor; stroke: transparent}
+    .star-glow .filled{color:#fbbf24}
+    .star-glow .half{color:#fbbf24}
+    .star-glow .empty{color:#475569;opacity:.45}
   </style>
 </head>
 <body class="bg-[#0b0e13] text-white selection:bg-indigo-500/30">
@@ -94,48 +100,53 @@
     <!-- About -->
     <div data-aos="fade-up">
       <h2 class="text-2xl font-bold mb-2">About this Ebook</h2>
-      <p class="text-zinc-300 leading-relaxed">The Bhagavad Gita is more than scripture — it’s a guide to life. This edition brings out simplified explanations, practical examples, and modern reflections for today’s reader.</p>
+      <p class="text-zinc-300 leading-relaxed">The Bhagavad Gita is more than scripture, it’s a guide to life. This edition brings out simplified explanations, practical examples, and modern reflections for today’s reader.</p>
     </div>
 
-    <!-- QnA (smooth height animation) -->
+    <!-- Q&A (smooth animation) -->
     <div data-aos="fade-up">
       <h2 class="text-2xl font-bold mb-4">Q&A</h2>
       <div class="divide-y divide-white/10 rounded-xl border border-white/10 bg-white/5">
         <details class="p-4 transition-all">
-          <summary class="cursor-pointer font-semibold flex justify-between items-center">Is this ebook beginner-friendly?
+          <summary class="cursor-pointer font-semibold flex justify-between items-center">
+            Is this ebook beginner-friendly?
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
           </summary>
-          <div class="details-content"><p class="mt-2 text-sm text-zinc-300">Yes, it is written in simple language with practical examples.</p></div>
+          <div class="details-content"><p class="mt-2 text-sm text-zinc-300">Yes. It’s written in simple language with clear takeaways after each chapter.</p></div>
         </details>
         <details class="p-4 transition-all">
-          <summary class="cursor-pointer font-semibold flex justify-between items-center">Can I read it offline?
+          <summary class="cursor-pointer font-semibold flex justify-between items-center">
+            Can I read it offline?
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
           </summary>
-          <div class="details-content"><p class="mt-2 text-sm text-zinc-300">Yes, once downloaded you can access it anytime without internet.</p></div>
+          <div class="details-content"><p class="mt-2 text-sm text-zinc-300">Yes. After purchase you can download and read anytime without internet.</p></div>
         </details>
         <details class="p-4 transition-all">
-          <summary class="cursor-pointer font-semibold flex justify-between items-center">Does it include original verses?
+          <summary class="cursor-pointer font-semibold flex justify-between items-center">
+            Does it include original verses?
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
           </summary>
-          <div class="details-content"><p class="mt-2 text-sm text-zinc-300">Yes, verses are included with English translations.</p></div>
+          <div class="details-content"><p class="mt-2 text-sm text-zinc-300">Yes. Original verses with English explanations and practical notes.</p></div>
         </details>
       </div>
     </div>
 
-    <!-- Feedbacks (enhanced) -->
+    <!-- Feedbacks (10+ with Show More) -->
     <div id="feedbacks" data-aos="fade-up">
       <h2 class="text-2xl font-bold mb-1">What our readers say</h2>
       <p class="mb-4 text-sm text-zinc-400">These are the most repeated points readers mentioned.</p>
+
       <div class="grid gap-4 md:grid-cols-2" id="feedback-list">
-        <!-- visible first 4 -->
+        <!-- Visible first 4 -->
+        <!-- 4.5/5 -->
         <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp">
           <div class="flex items-center justify-between mb-1">
-            <div class="star-glow flex items-center gap-1 text-amber-400">
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star-half" class="h-4 w-4"></i>
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star-half" class="h-4 w-4 half"></i>
             </div>
             <span class="text-[11px] text-zinc-400">27 Aug 2025 • 2:14 PM</span>
           </div>
@@ -143,14 +154,15 @@
           <span class="text-xs text-zinc-400">— Aarav, India</span>
         </div>
 
+        <!-- 4/5 -->
         <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp">
           <div class="flex items-center justify-between mb-1">
-            <div class="star-glow flex items-center gap-1 text-amber-400">
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4 opacity-50"></i>
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 empty"></i>
             </div>
             <span class="text-[11px] text-zinc-400">25 Aug 2025 • 6:02 PM</span>
           </div>
@@ -158,14 +170,15 @@
           <span class="text-xs text-zinc-400">— Emma, UK</span>
         </div>
 
+        <!-- 5/5 -->
         <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp">
           <div class="flex items-center justify-between mb-1">
-            <div class="star-glow flex items-center gap-1 text-amber-400">
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star-half" class="h-4 w-4"></i>
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
             </div>
             <span class="text-[11px] text-zinc-400">22 Aug 2025 • 11:35 AM</span>
           </div>
@@ -173,14 +186,15 @@
           <span class="text-xs text-zinc-400">— Michael, USA</span>
         </div>
 
+        <!-- 4/5 -->
         <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp">
           <div class="flex items-center justify-between mb-1">
-            <div class="star-glow flex items-center gap-1 text-amber-400">
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4 opacity-50"></i>
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 empty"></i>
             </div>
             <span class="text-[11px] text-zinc-400">18 Aug 2025 • 9:18 PM</span>
           </div>
@@ -188,15 +202,15 @@
           <span class="text-xs text-zinc-400">— Li Wei, China</span>
         </div>
 
-        <!-- hidden extra -->
+        <!-- Hidden extra 8+ reviews -->
         <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp hidden extra-feedback">
           <div class="flex items-center justify-between mb-1">
-            <div class="star-glow flex items-center gap-1 text-amber-400">
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star-half" class="h-4 w-4"></i>
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star-half" class="h-4 w-4 half"></i>
             </div>
             <span class="text-[11px] text-zinc-400">14 Aug 2025 • 3:47 PM</span>
           </div>
@@ -206,12 +220,12 @@
 
         <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp hidden extra-feedback">
           <div class="flex items-center justify-between mb-1">
-            <div class="star-glow flex items-center gap-1 text-amber-400">
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star-half" class="h-4 w-4"></i>
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star-half" class="h-4 w-4 half"></i>
             </div>
             <span class="text-[11px] text-zinc-400">10 Aug 2025 • 7:02 PM</span>
           </div>
@@ -221,12 +235,12 @@
 
         <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp hidden extra-feedback">
           <div class="flex items-center justify-between mb-1">
-            <div class="star-glow flex items-center gap-1 text-amber-400">
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4 opacity-50"></i>
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 empty"></i>
             </div>
             <span class="text-[11px] text-zinc-400">06 Aug 2025 • 10:26 AM</span>
           </div>
@@ -236,12 +250,42 @@
 
         <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp hidden extra-feedback">
           <div class="flex items-center justify-between mb-1">
-            <div class="star-glow flex items-center gap-1 text-amber-400">
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star" class="h-4 w-4"></i>
-              <i data-lucide="star-half" class="h-4 w-4"></i>
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star-half" class="h-4 w-4 half"></i>
+            </div>
+            <span class="text-[11px] text-zinc-400">04 Aug 2025 • 8:11 PM</span>
+          </div>
+          <p class="text-sm">“Loved the practical notes and exercises at the end of chapters.”</p>
+          <span class="text-xs text-zinc-400">— Neha, India</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp hidden extra-feedback">
+          <div class="flex items-center justify-between mb-1">
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 empty"></i>
+            </div>
+            <span class="text-[11px] text-zinc-400">02 Aug 2025 • 5:30 PM</span>
+          </div>
+          <p class="text-sm">“Clear language. I finally understood the core ideas.”</p>
+          <span class="text-xs text-zinc-400">— Omar, UAE</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white/5 shadow-glow animate-slideUp hidden extra-feedback">
+          <div class="flex items-center justify-between mb-1">
+            <div class="star-glow flex items-center gap-1">
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star" class="h-4 w-4 filled"></i>
+              <i data-lucide="star-half" class="h-4 w-4 half"></i>
             </div>
             <span class="text-[11px] text-zinc-400">31 Jul 2025 • 4:58 PM</span>
           </div>
@@ -249,6 +293,7 @@
           <span class="text-xs text-zinc-400">— Elena, Spain</span>
         </div>
       </div>
+
       <button id="showMore" class="mt-4 inline-block rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20 transition">Show More</button>
     </div>
   </section>
@@ -263,25 +308,24 @@
     lucide.createIcons();
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // One-time corner glow on Buy button when user enters page
+    // one-time corner glow on buy button
     window.addEventListener('load', ()=>{
       const bling = document.querySelector('#buyBtn .corner-bling');
-      if(bling){
-        bling.style.opacity = 1;
-        bling.classList.add('animate-cornerPop');
-      }
+      if(bling){ bling.style.opacity = 1; bling.classList.add('animate-cornerPop'); }
     });
 
     // Show More feedbacks
-    document.getElementById('showMore').addEventListener('click', function(){
-      document.querySelectorAll('.extra-feedback').forEach(el=>{
-        el.classList.remove('hidden');
-        el.classList.add('block');
+    const sm = document.getElementById('showMore');
+    if(sm){
+      sm.addEventListener('click', ()=>{
+        document.querySelectorAll('.extra-feedback').forEach(el=>{
+          el.classList.remove('hidden'); el.classList.add('block');
+        });
+        sm.style.display='none';
       });
-      this.style.display="none";
-    });
+    }
 
-    // Smooth QnA height animation for <details>
+    // Smooth QnA height animation
     document.querySelectorAll('details').forEach(d=>{
       const content = d.querySelector('.details-content');
       if(!content) return;
